@@ -111,7 +111,7 @@
 
               <div class="ph-button-theme btn">
                 <span>File</span>
-                <input type="file" for="fileElem" name="image">
+                <input type="file" for="fileElem" name="image" id="input-tag-of-file">
               </div>
 
               <div class="file-path-wrapper">
@@ -154,7 +154,9 @@
   <script>
     let my_file;
     let dropArea = document.getElementById("drop-area");
+    let fileInputEl = document.getElementById("input-tag-of-file");
 
+    fileInputEl.onchange = handleFileChange;
     function imageComponent(imgInstance) {
 
       const rel = document.createElement("div");
@@ -271,15 +273,19 @@
       //   imageHolder.imageContainerEl.innerHtml = imageComponent();
     }
 
+    function handleFileChange(e) {
+      imageHolder.clearImages();
+      setImagesToBeUploaded(Array.from(e.target.files));
+    }
     function handleDrop(e) {
       imageHolder.clearImages();
       let dt = e.dataTransfer;
-      console.log(dt);
+      // console.log(dt);
       let files = dt.files;
-      console.log("files", files);
+      // console.log("files", files);
 
       const fyles = Array.from(files);
-      console.log("fyles", fyles);
+      // console.log("fyles", fyles);
       setImagesToBeUploaded(fyles);
       //   handleFiles(files);
     }
@@ -291,7 +297,7 @@
 
     function uploadFile(file) {
       //   console.log(imageHolder.uploadedImage.file)
-      console.log(imageHolder)
+      // console.log(imageHolder)
       let formData = new FormData();
       formData.append("file", imageHolder.uploadedImage.file);
       formData.append("title", imageHolder.name);
