@@ -82,4 +82,6 @@ if ($row_open == TRUE) {
 	echo '</div>';
 }
 
+$con->close();
+
 ?>

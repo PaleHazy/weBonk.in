@@ -108,7 +108,7 @@
 
         <div id="page-controls" class="center row">
           <!-- Previous Page -->
-          <a class="ph-button-theme  btn  waves-effect waves-orange" onclick="changePage(-1)">
+          <a class="ph-button-theme btn waves-effect waves-orange" onclick="changePage(-1)">
             <i class="material-icons orange-text">chevron_left</i>
           </a>
 

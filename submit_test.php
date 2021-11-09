@@ -5,29 +5,49 @@
   // Initialize message variable
   $msg = "";
 
+  $target_dir = "img/memes/";
+
   // If upload button is clicked ...
   if (isset($_POST['upload'])) {
   	// Get image name
   	$image = $_FILES['image']['name'];
   	// Get text
-  	$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
+  	// $image_text = mysqli_real_escape_string($con, $_POST['image_text']);
 
   	// image file directory
-  	$target = "images/".basename($image);
+    $img_name = basename($image);
+  	$target = $target_dir .basename($image);
 
-  	$sql = "INSERT INTO images (image, image_text) VALUES ('$image', '$image_text')";
+    $sql = "INSERT INTO memes2 (title, url, user_id) VALUES ('test', '" .$img_name. "', NULL)";
+
   	// execute query
-  	mysqli_query($db, $sql);
+  	mysqli_query($con, $sql);
+
+    if($_FILES["image"]["error"] > 0){
+        echo "Error: " . $_FILES["image"]["error"] . "<br>";
+    } else{
+        echo "File Name: " . $_FILES["image"]["name"] . "<br>";
+        echo "File Type: " . $_FILES["image"]["type"] . "<br>";
+        echo "File Size: " . ($_FILES["image"]["size"] / 1024) . " KB<br>";
+        echo "Stored in: " . $_FILES["image"]["tmp_name"];
+    }
+
 
   	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
   		$msg = "Image uploaded successfully";
-  	}else{
+  	} else {
   		$msg = "Failed to upload image";
   	}
+    //*/
   }
   
-  $result = mysqli_query($dbname, "SELECT * FROM memes");
+  $sql_search = "SELECT * FROM memes2 WHERE title = 'test'";
 
+  $result = mysqli_query($con, $sql_search);
+
+  $reloadpage = $_SERVER['PHP_SELF']."#myForm";
+  header("Location:$reloadpage");
+  exit();
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,23 +90,14 @@
   <?php
     while ($row = mysqli_fetch_array($result)) {
       echo "<div id='img_div'>";
-      	echo "<img src='images/".$row['image']."' >";
-      	echo "<p>".$row['image_text']."</p>";
+      	echo "<img src='img/memes/".$row['url']."' >";
       echo "</div>";
     }
   ?>
-  <form method="POST" action="index.php" enctype="multipart/form-data">
+  <form id="myForm" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>#myForm" enctype="multipart/form-data">
   	<input type="hidden" name="size" value="1000000">
   	<div>
   	  <input type="file" name="image">
-  	</div>
-  	<div>
-      <textarea 
-      	id="text" 
-      	cols="40" 
-      	rows="4" 
-      	name="image_text" 
-      	placeholder="Say something about this image..."></textarea>
   	</div>
   	<div>
   		<button type="submit" name="upload">POST</button>

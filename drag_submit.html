@@ -11,7 +11,7 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6VJPCLSZD"></script>
@@ -98,37 +98,32 @@
   </header>
 
   <main>
-    <div class="container">
-      <div id="drop-area">
-        <form class="my-form">
-          <p>
-            Upload multiple files with the file dialog or by dragging and dropping
-            images onto the dashed region
-          </p>
-          <input
-            type="file"
-            id="fileElem"
-            multiple
-            accept="image/*"
-            onchange="handleFiles(this.files)"
-          />
+    <div id="drop-area">
+      <form class="my-form">
+        <p>
+          Upload multiple files with the file dialog or by dragging and dropping
+          images onto the dashed region
+        </p>
+        <input
+          type="file"
+          id="fileElem"
+          multiple
+          accept="image/*"
+          onchange="handleFiles(this.files)"
+        />
 
-          <label class="button" for="fileElem">Select some files</label>
-        </form>
-      </div>
-      <label>
-        Name
-        <input />
-      </label>
-      <div id="images-container"></div>
+        <label class="button" for="fileElem">Select some files</label>
+      </form>
     </div>
+    <label>
+      Name
+      <input />
+    </label>
+    <div id="images-container"></div>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="page-footer grey darken-5">
-
-  </footer>
-
+  </body>
   <style>
     #drop-area {
       border: 2px dashed #ccc;
@@ -225,7 +220,6 @@
         console.log(this)
         this.style.display = "none"
     }
-
     function imageComponent(imgInstance) {
       const hoverCard = document.createElement("div");
       hoverCard.classList.add("hover-card");
@@ -242,7 +236,6 @@
       rel.appendChild(hoverCard);
       return rel;
     }
-    
     class Image {
       constructor(file) {
         this.file = file;
@@ -340,12 +333,4 @@
       formData.append("file", file);
     }
   </script>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-</body>
 </html>
